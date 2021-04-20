@@ -2,7 +2,7 @@
 
 Blazor Extensions are a set of packages with the goal of adding useful things to [Blazor](https://blazor.net).
 
-# Blazor Extensions XTerm
+# Blazor Extensions AzureMaps
 
 This package is a basic wrapper around [AzureMaps](https://docs.microsoft.com/en-us/azure/azure-maps/) for blazor.
 
