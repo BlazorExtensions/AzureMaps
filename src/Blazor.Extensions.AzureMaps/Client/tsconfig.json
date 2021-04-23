@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "noEmitOnError": true,
+    "removeComments": true,
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "target": "es6",
+    "strict": true,
+    "alwaysStrict": true,
+    "preserveConstEnums": true
+  }
+}

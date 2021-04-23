@@ -1,14 +1,49 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <Title>Blazor Extensions AzureMaps</Title>
+    <Description>An AzureMaps wrapper for ASP.NET Core Blazor.</Description>
+  </PropertyGroup>
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <IsPackable>true</IsPackable>
+    <PackageId>Blazor.Extensions.AzureMaps</PackageId>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <None Include="Client\node_modules\.yarn-integrity" />
   </ItemGroup>
-  
 
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <DefaultItemExcludes>$(DefaultItemExcludes);Client\*</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
+      RunWebpack;
+      $(ResolveCurrentProjectStaticWebAssetsInputs)
+    </ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.5" />
+    <PackageReference Include="System.Text.Json" Version="5.0.2" />
+    <PackageReference Include="Yarn.MSBuild" Version="*">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <Target Name="RunWebpack" Outputs="wwwroot\BE.AzureMaps.js">
+    <Yarn WorkingDirectory="Client" />
+
+    <Yarn Command="build" WorkingDirectory="Client" />
+  </Target>
 
 </Project>

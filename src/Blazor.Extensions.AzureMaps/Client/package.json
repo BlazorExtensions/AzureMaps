@@ -1,0 +1,22 @@
+{
+  "name": "blazor.extensions.azuremaps",
+  "version": "0.0.1",
+  "description": "",
+  "private": true,
+  "main": "BE.AzureMaps.js",
+  "scripts": {
+    "build": "rimraf ../wwwroot && rollup -c rollup.config.js"
+  },
+  "dependencies": {
+    "azure-maps-control": "^2.0.32",
+    "azure-maps-rest": "^2.0.5"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^11.2.0",
+    "@rollup/plugin-typescript": "^8.2.0",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.39.0",
+    "tslib": "^2.1.0",
+    "typescript": "^4.1.5"
+  }
+}
