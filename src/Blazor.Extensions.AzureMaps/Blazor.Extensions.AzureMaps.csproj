@@ -13,6 +13,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\BE.AzureMaps.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Client\node_modules\.yarn-integrity" />
   </ItemGroup>
 
@@ -38,6 +42,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <Target Name="RunWebpack" Outputs="wwwroot\BE.AzureMaps.js">

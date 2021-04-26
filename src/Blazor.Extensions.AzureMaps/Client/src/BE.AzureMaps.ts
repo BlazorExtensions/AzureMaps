@@ -3,23 +3,16 @@ import * as mapsRest from "azure-maps-rest";
 
 
 export class BlazorExtensionsAzureMaps {
-  link: any;
-  script:any;
-  dataSource:atlas.source.DataSource;
-  map: atlas.Map;
-  data: any;
-  zoom:number;
-  currentLat:number;
-  currentLon: number;
+  static link: any;
+  static script:any;
+  static dataSource:atlas.source.DataSource;
+  static map: atlas.Map;
+  static data: any;
+  static zoom:number;
+  static currentLat:number;
+  static currentLon: number;
 
-  constructor() {
-    this.dataSource = new atlas.source.DataSource();
-    this.zoom = 0;
-    this.currentLat = 0;
-    this.currentLon = 0;
-  }
-
-  init(mapName:string, subscriptionKey:string) {
+  static init(mapName:string, subscriptionKey:string) {
 
     atlas.setSubscriptionKey(subscriptionKey);
 
@@ -27,7 +20,7 @@ export class BlazorExtensionsAzureMaps {
     this.map = new atlas.Map(mapName, {});
   };
 
-  setupMap(subscriptionKey: string, latitude: number, longitude: number) {
+  static setupMap(subscriptionKey: string, latitude: number, longitude: number) {
 
     this.init("map", subscriptionKey);
     this.map = new atlas.Map("map", {
@@ -60,7 +53,7 @@ export class BlazorExtensionsAzureMaps {
     });
   };
 
-  async setLocation(subscriptionKey:string, searchAddress:string) {
+  static async setLocation(subscriptionKey:string, searchAddress:string) {
 
     const subscriptionKeyCredential = new mapsRest.SubscriptionKeyCredential(subscriptionKey);
     // Use subscriptionKeyCredential to create a pipeline
@@ -84,7 +77,7 @@ export class BlazorExtensionsAzureMaps {
 
   };
 
-  showPopup(long: number, lat: number, text:string) {
+  static showPopup(long: number, lat: number, text:string) {
     const feature = new atlas.data.Feature(
       new atlas.data.Point([long, lat]),
       {

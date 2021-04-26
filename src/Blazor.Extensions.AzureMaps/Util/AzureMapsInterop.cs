@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Microsoft.JSInterop;
 
 namespace Blazor.Extensions.AzureMaps.Util
@@ -12,10 +12,10 @@ namespace Blazor.Extensions.AzureMaps.Util
             JSRuntime = jsRuntime;
         }
         
-        public ValueTask<bool> SetCssAndJs(string version)=> JSRuntime.InvokeAsync<bool>("blazorExtensionsAzureMaps.setCssAndJs", version);
-        public ValueTask<bool> Init(string mapName, string subscriptionKey) => JSRuntime.InvokeAsync<bool>("blazorExtensionsAzureMaps.init", mapName, subscriptionKey);
-        public ValueTask<bool> SetupMap(string subscriptionKey, double latitude, double longitude) => JSRuntime.InvokeAsync<bool>("blazorExtensionsAzureMaps.setupMap", subscriptionKey, latitude, longitude);
-        public ValueTask<bool> SetLocation(string subscriptionKey, string searchAddress) => JSRuntime.InvokeAsync<bool>("blazorExtensionsAzureMaps.setLocation", subscriptionKey, searchAddress);
-        public ValueTask<bool> ShowPopup(double longitude,double latitud, string text)=> JSRuntime.InvokeAsync<bool>("blazorExtensionsAzureMaps.showPopup", longitude,latitud,text);
+        public ValueTask<bool> SetCssAndJs(string version)=> JSRuntime.InvokeAsync<bool>("BlazorExtensionsAzureMaps.setCssAndJs", version);
+        public ValueTask<bool> Init(string mapName, string subscriptionKey) => JSRuntime.InvokeAsync<bool>("BlazorExtensionsAzureMaps.init", mapName, subscriptionKey);
+        public ValueTask<bool> SetupMap(string subscriptionKey, double latitude, double longitude) => JSRuntime.InvokeAsync<bool>("BlazorExtensionsAzureMaps.setupMap", subscriptionKey, latitude, longitude);
+        public ValueTask<bool> SetLocation(string subscriptionKey, string searchAddress) => JSRuntime.InvokeAsync<bool>("BlazorExtensionsAzureMaps.setLocation", subscriptionKey, searchAddress);
+        public ValueTask<bool> ShowPopup(double longitude,double latitud, string text)=> JSRuntime.InvokeAsync<bool>("BlazorExtensionsAzureMaps.showPopup", longitude,latitud,text);
     }
 }

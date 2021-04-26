@@ -289,6 +289,5 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
-src/Blazor.Extensions.ChartJS/wwwroot
-# src/Blazor.Extensions.ChartJS/wwwroot/*.js
-# !src/Blazor.Extensions.ChartJS/wwwroot/Chart.min.js
+
+/src/Blazor.Extensions.AzureMaps/wwwroot
