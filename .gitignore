@@ -288,6 +288,7 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
-
+.vscode
+secrets.json
 
 /src/Blazor.Extensions.AzureMaps/wwwroot

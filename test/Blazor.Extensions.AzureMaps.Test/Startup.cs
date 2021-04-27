@@ -21,7 +21,11 @@ namespace Blazor.Extensions.AzureMaps.Test
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddAzureMapsCssAndJs();
+
+            services.AddAzureMaps(opt =>
+            {
+                this.Configuration.Bind("AzureMaps", opt);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
