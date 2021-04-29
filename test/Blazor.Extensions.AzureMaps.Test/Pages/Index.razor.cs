@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
-using Blazor.Extensions.AzureMaps;
+using Blazor.Extensions.AzureMaps.Component;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Configuration;
 
 namespace Blazor.Extensions.AzureMaps.Test.Pages
 {

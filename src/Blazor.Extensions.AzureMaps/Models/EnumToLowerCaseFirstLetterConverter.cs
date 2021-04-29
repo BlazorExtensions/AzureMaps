@@ -2,7 +2,7 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Blazor.Extensions.AzureMaps
+namespace Blazor.Extensions.AzureMaps.Models
 {
     internal class EnumToLowerCaseFirstLetterConverter<TEnum> : JsonConverter<TEnum> where TEnum : struct
     {

@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Blazor.Extensions.AzureMaps
+namespace Blazor.Extensions.AzureMaps.Models
 {
     /// <summary>
     /// Global properties used in all atlas service requests.

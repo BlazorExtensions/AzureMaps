@@ -1,4 +1,5 @@
 import * as atlas from "azure-maps-control";
+import * as dtools from "azure-maps-drawing-tools";
 // import * as mapsRest from "azure-maps-rest";
 
 const init = (subscriptionKey: string) => {
@@ -15,4 +16,11 @@ const createMap = (
   return new atlas.Map(mapId, options);
 };
 
-export { init, createMap };
+const addDrawingTools = (
+  map: atlas.Map,
+  options: dtools.DrawingManagerOptions
+): dtools.drawing.DrawingManager => {
+  return new dtools.drawing.DrawingManager(map, options);
+};
+
+export { init, createMap, addDrawingTools };

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "azure-maps-control": "^2.0.32",
+    "azure-maps-drawing-tools": "^0.1.6",
     "azure-maps-rest": "^2.0.5"
   },
   "devDependencies": {
