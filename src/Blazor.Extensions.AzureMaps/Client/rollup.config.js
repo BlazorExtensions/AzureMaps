@@ -13,7 +13,7 @@ export default {
     format: "es",
   },
   plugins: [
-    externals({ peerDeps: true, deps: true, exclude: "azure-maps-control" }),
+    externals({ peerDeps: true, deps: true, exclude: ["azure-maps-control", "azure-maps-drawing-tools"] }),
     nodeResolve({
       browser: true,
       extensions,

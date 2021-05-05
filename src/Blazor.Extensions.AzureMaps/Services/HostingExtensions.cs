@@ -1,8 +1,7 @@
 using System;
-using Blazor.Extensions.AzureMaps.Models;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Blazor.Extensions.AzureMaps.Services
+namespace Blazor.Extensions.AzureMaps
 {
     public static class HostingExtensions
     {

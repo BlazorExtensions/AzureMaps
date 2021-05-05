@@ -1,10 +1,9 @@
 using System;
 using System.Threading.Tasks;
-using Blazor.Extensions.AzureMaps.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 
-namespace Blazor.Extensions.AzureMaps.Services
+namespace Blazor.Extensions.AzureMaps
 {
     internal class MapService : IMapService
     {
@@ -13,22 +12,22 @@ namespace Blazor.Extensions.AzureMaps.Services
         private const string CreateMapMethod = "createMap";
         private const string AddDrawingToolsMethod = "addDrawingTools";
         private const string ImportJSModuleMethod = "import";
-        private readonly AzureMapsOptions _options;
-        private readonly IJSRuntime _runtime;
-        private IJSObjectReference _azureMapsModule = default!;
+        private readonly AzureMapsOptions options;
+        private readonly IJSRuntime runtime;
+        private IJSObjectReference azureMapsModule = default!;
 
         public MapService(IOptions<AzureMapsOptions> options, IJSRuntime runtime)
         {
-            this._runtime = runtime;
+            this.runtime = runtime;
             if (string.IsNullOrWhiteSpace(options.Value.SubscriptionKey)) throw new ArgumentNullException(nameof(options.Value.SubscriptionKey));
-            this._options = options.Value;
+            this.options = options.Value;
         }
 
         public async Task<IMapReference> CreateMap(Guid mapId, MapOptions? mapOptions)
         {
             await this.EnsureModuleLoaded();
 
-            var jsReference = await this._azureMapsModule
+            var jsReference = await this.azureMapsModule
                     .InvokeAsync<IJSObjectReference>(
                         CreateMapMethod,
                         mapId,
@@ -37,27 +36,26 @@ namespace Blazor.Extensions.AzureMaps.Services
             return new MapReference(mapId, jsReference);
         }
 
-        public async Task<IMapDrawingManager> AddDrawingTool(IMapReference map, DrawingManagerOptions? drawingManagerOptions)
+        public async Task AddDrawingTool(IMapReference mapReference, DrawingManagerOptions? drawingManagerOptions)
         {
             await this.EnsureModuleLoaded();
 
-            var jsReference = await this._azureMapsModule
-                .InvokeAsync<IJSObjectReference>(
+            await this.azureMapsModule
+                .InvokeVoidAsync(
                     AddDrawingToolsMethod,
-                    map,
+                    mapReference.Map,
                     drawingManagerOptions
                 );
-            return new MapDrawingManager(jsReference);
         }
 
         private async ValueTask EnsureModuleLoaded()
         {
-            if (this._azureMapsModule != null) return;
+            if (this.azureMapsModule != null) return;
 
-            this._azureMapsModule = await this._runtime.InvokeAsync<IJSObjectReference>(
+            this.azureMapsModule = await this.runtime.InvokeAsync<IJSObjectReference>(
                 ImportJSModuleMethod, AzureMapsScriptName);
 
-            await this._azureMapsModule.InvokeVoidAsync(InitAzureMapsMethod, this._options.SubscriptionKey);
+            await this.azureMapsModule.InvokeVoidAsync(InitAzureMapsMethod, this.options.SubscriptionKey);
         }
     }
 }

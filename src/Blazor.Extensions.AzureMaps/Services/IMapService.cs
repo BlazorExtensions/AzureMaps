@@ -1,12 +1,11 @@
 using System;
 using System.Threading.Tasks;
-using Blazor.Extensions.AzureMaps.Models;
 
-namespace Blazor.Extensions.AzureMaps.Services
+namespace Blazor.Extensions.AzureMaps
 {
     public interface IMapService
     {
         Task<IMapReference> CreateMap(Guid mapId, MapOptions? options);
-        Task<IMapDrawingManager> AddDrawingTool(IMapReference map, DrawingManagerOptions? drawingManagerOptions);
+        Task AddDrawingTool(IMapReference mapReference, DrawingManagerOptions? drawingManagerOptions);
     }
 }

@@ -7,22 +7,22 @@ namespace Blazor.Extensions.AzureMaps
     internal class MapReference : IMapReference
     {
         private const string DisposeMethod = "dispose";
-        private readonly IJSObjectReference _jsReference;
+        public IJSObjectReference Map { get; }
 
         public Guid MapId { get; private set; }
 
         public MapReference(Guid id, IJSObjectReference jsReference)
         {
             this.MapId = id;
-            this._jsReference = jsReference;
+            this.Map = jsReference;
         }
 
         public async ValueTask DisposeAsync()
         {
             try
             {
-                await this._jsReference.InvokeVoidAsync(DisposeMethod);
-                await this._jsReference.DisposeAsync();
+                await this.Map.InvokeVoidAsync(DisposeMethod);
+                await this.Map.DisposeAsync();
             }
             catch (TaskCanceledException)
             {

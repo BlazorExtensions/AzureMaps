@@ -1,6 +1,6 @@
 using System;
 
-namespace Blazor.Extensions.AzureMaps.Services
+namespace Blazor.Extensions.AzureMaps
 {
     public interface IMapDrawingManager : IAsyncDisposable
     {

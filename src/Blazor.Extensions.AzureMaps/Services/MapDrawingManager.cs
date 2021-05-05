@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using Blazor.Extensions.AzureMaps.Services;
 using Microsoft.JSInterop;
 
 namespace Blazor.Extensions.AzureMaps
@@ -7,19 +6,19 @@ namespace Blazor.Extensions.AzureMaps
     internal class MapDrawingManager : IMapDrawingManager
     {
         private const string DisposeMethod = "dispose";
-        private readonly IJSObjectReference _jsReference;
+        private readonly IJSObjectReference jsReference;
 
         public MapDrawingManager(IJSObjectReference jsReference)
         {
-            this._jsReference = jsReference;
+            this.jsReference = jsReference;
         }
 
         public async ValueTask DisposeAsync()
         {
             try
             {
-                await this._jsReference.InvokeVoidAsync(DisposeMethod);
-                await this._jsReference.DisposeAsync();
+                await this.jsReference.InvokeVoidAsync(DisposeMethod);
+                await this.jsReference.DisposeAsync();
             }
             catch (TaskCanceledException)
             {

@@ -126,12 +126,19 @@ axios@^0.21.1:
   dependencies:
     follow-redirects "^1.10.0"
 
-azure-maps-control@^2.0.32:
+azure-maps-control@^2.0.21, azure-maps-control@^2.0.32:
   version "2.0.32"
   resolved "https://registry.yarnpkg.com/azure-maps-control/-/azure-maps-control-2.0.32.tgz#9844449275f964af4acd530cbcd6f3842758a23e"
   integrity sha512-MgesL97292XIFNWVo/7koVpxGYW9g5AJx5XlJCXpg0teYUPrz+YsMUnyvNOQviHO3stvsBtQpEGT5gdwVibVIA==
   dependencies:
     "@types/adal-angular" "^1.0.1"
+
+azure-maps-drawing-tools@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/azure-maps-drawing-tools/-/azure-maps-drawing-tools-0.1.6.tgz#f8c189995a2dbd44f6ee7dba94b3a7fc6c62dede"
+  integrity sha512-S7GODJTFRbzy9AXdN3gLgB8oNXQ9y0MNaeP2wv10dfClKKg9DSyqNdlFPXgPzYNGiSYC4l0vm+JQAkbjFrLiAQ==
+  dependencies:
+    azure-maps-control "^2.0.21"
 
 azure-maps-rest@^2.0.5:
   version "2.0.5"

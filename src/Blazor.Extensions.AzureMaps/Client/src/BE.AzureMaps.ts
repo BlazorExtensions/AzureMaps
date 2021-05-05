@@ -19,8 +19,8 @@ const createMap = (
 const addDrawingTools = (
   map: atlas.Map,
   options: dtools.DrawingManagerOptions
-): dtools.drawing.DrawingManager => {
-  return new dtools.drawing.DrawingManager(map, options);
+): void => {
+  map.events.add("ready", () => new dtools.drawing.DrawingManager(map, options));
 };
 
 export { init, createMap, addDrawingTools };

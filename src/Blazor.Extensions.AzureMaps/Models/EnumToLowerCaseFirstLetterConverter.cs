@@ -2,11 +2,11 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Blazor.Extensions.AzureMaps.Models
+namespace Blazor.Extensions.AzureMaps
 {
     internal class EnumToLowerCaseFirstLetterConverter<TEnum> : JsonConverter<TEnum> where TEnum : struct
     {
-        private static readonly Type _supportedType = typeof(TEnum);
+        private static readonly Type SupportedType = typeof(TEnum);
 
         public override TEnum Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

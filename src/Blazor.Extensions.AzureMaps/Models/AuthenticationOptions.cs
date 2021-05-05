@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Blazor.Extensions.AzureMaps.Models
+namespace Blazor.Extensions.AzureMaps
 {
     public class AuthenticationOptions
     {

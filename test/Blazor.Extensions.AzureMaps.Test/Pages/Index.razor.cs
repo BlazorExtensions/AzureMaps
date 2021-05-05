@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using Blazor.Extensions.AzureMaps.Component;
 using Microsoft.AspNetCore.Components;
 
 namespace Blazor.Extensions.AzureMaps.Test.Pages
@@ -8,6 +7,8 @@ namespace Blazor.Extensions.AzureMaps.Test.Pages
     {
         private MapComponent azureMaps;
 
+        protected DrawingManagerOptions drawingManagerOptions = new DrawingManagerOptions
+            {Toolbar = new DrawingToolbar {Options = new DrawingToolbarOptions {Position = "top-right"}}};
         protected override Task OnAfterRenderAsync(bool firstRender)
         {
             return Task.CompletedTask;

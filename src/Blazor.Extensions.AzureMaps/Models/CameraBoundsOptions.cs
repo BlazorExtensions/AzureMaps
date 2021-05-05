@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Blazor.Extensions.AzureMaps.Models
+namespace Blazor.Extensions.AzureMaps
 {
     /// <summary>
     /// The options for setting the bounds of the map control's camera.
