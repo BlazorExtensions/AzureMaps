@@ -9,6 +9,7 @@ namespace Blazor.Extensions.AzureMaps
     {
         private const string AzureMapsScriptName = "./_content/Blazor.Extensions.AzureMaps/BE.AzureMaps.js";
         private const string InitAzureMapsMethod = "init";
+        private const string AzureMapsClass = "BEAzureMaps";
         private const string CreateMapMethod = "createMap";
         private const string AddDrawingToolsMethod = "addDrawingTools";
         private const string ImportJSModuleMethod = "import";
@@ -29,7 +30,7 @@ namespace Blazor.Extensions.AzureMaps
 
             var jsReference = await this.azureMapsModule
                     .InvokeAsync<IJSObjectReference>(
-                        CreateMapMethod,
+                        $"{AzureMapsClass}.{CreateMapMethod}",
                         mapId,
                         mapOptions
                     );
@@ -42,7 +43,7 @@ namespace Blazor.Extensions.AzureMaps
 
             await this.azureMapsModule
                 .InvokeVoidAsync(
-                    AddDrawingToolsMethod,
+                    $"{AzureMapsClass}.{AddDrawingToolsMethod}",
                     mapReference.Map,
                     drawingManagerOptions
                 );
@@ -55,7 +56,7 @@ namespace Blazor.Extensions.AzureMaps
             this.azureMapsModule = await this.runtime.InvokeAsync<IJSObjectReference>(
                 ImportJSModuleMethod, AzureMapsScriptName);
 
-            await this.azureMapsModule.InvokeVoidAsync(InitAzureMapsMethod, this.options.SubscriptionKey);
+            await this.azureMapsModule.InvokeVoidAsync($"{AzureMapsClass}.{InitAzureMapsMethod}", this.options.SubscriptionKey);
         }
     }
 }
