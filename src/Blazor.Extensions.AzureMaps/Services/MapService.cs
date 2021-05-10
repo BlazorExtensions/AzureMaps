@@ -8,7 +8,9 @@ namespace Blazor.Extensions.AzureMaps
     internal class MapService : IMapService
     {
         private const string AzureMapsScriptName = "./_content/Blazor.Extensions.AzureMaps/BE.AzureMaps.js";
+        private const string AzureMapsCssName = "./_content/Blazor.Extensions.AzureMaps/bundle.css";
         private const string InitAzureMapsMethod = "init";
+        private const string InjectCssMethod = "injectCss";
         private const string AzureMapsClass = "BEAzureMaps";
         private const string CreateMapMethod = "createMap";
         private const string AddDrawingToolsMethod = "addDrawingTools";
@@ -56,6 +58,7 @@ namespace Blazor.Extensions.AzureMaps
             this.azureMapsModule = await this.runtime.InvokeAsync<IJSObjectReference>(
                 ImportJSModuleMethod, AzureMapsScriptName);
 
+            await this.azureMapsModule.InvokeVoidAsync($"{AzureMapsClass}.{InjectCssMethod}", AzureMapsCssName);
             await this.azureMapsModule.InvokeVoidAsync($"{AzureMapsClass}.{InitAzureMapsMethod}", this.options.SubscriptionKey);
         }
     }

@@ -10,7 +10,8 @@
   "dependencies": {
     "azure-maps-control": "^2.0.32",
     "azure-maps-drawing-tools": "^0.1.6",
-    "azure-maps-rest": "^2.0.5"
+    "azure-maps-rest": "^2.0.5",
+    "rollup-plugin-css-only": "^3.1.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^18.0.0",
