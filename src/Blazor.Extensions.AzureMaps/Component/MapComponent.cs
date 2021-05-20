@@ -27,12 +27,27 @@ namespace Blazor.Extensions.AzureMaps
             {
                 this.map = await this.MapService
                     .CreateMap(this.MapId, this.Options);
-                if (this.DrawingManagerOptions != null)
-                {
-                    await this.MapService
-                        .AddDrawingTool(this.map, this.DrawingManagerOptions);
-                }
+                //if (this.DrawingManagerOptions != null)
+                //{
+                //    await this.MapService
+                //        .AddDrawingTool(this.map, this.DrawingManagerOptions);
+                //}
             }
+        }
+
+        public async Task SetLocation(MapOptions cameraOptions)
+        {
+            await this.MapService.SetLocation(cameraOptions);
+        }
+
+        public async Task DrawLocation(DrawingManagerOptions opts)
+        {
+            await this.MapService.DrawLocation(opts);
+        }
+
+        public async Task ClearShapes()
+        {
+            await this.MapService.ClearShapes();
         }
 
         public ValueTask DisposeAsync()

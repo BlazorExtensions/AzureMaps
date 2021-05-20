@@ -41,14 +41,34 @@ namespace Blazor.Extensions.AzureMaps
 
         public async Task AddDrawingTool(IMapReference mapReference, DrawingManagerOptions? drawingManagerOptions)
         {
-            await this.EnsureModuleLoaded();
-
             await this.azureMapsModule
                 .InvokeVoidAsync(
                     $"{AzureMapsClass}.{AddDrawingToolsMethod}",
                     mapReference.Map,
                     drawingManagerOptions
                 );
+        }
+
+        public async Task SetLocation(MapOptions cameraOptions)
+        {
+            await this.azureMapsModule.InvokeVoidAsync(
+                $"{AzureMapsClass}.setLocation",
+                cameraOptions
+            );
+        }
+
+        public async Task DrawLocation(DrawingManagerOptions opts)
+        {
+            await this.azureMapsModule.InvokeVoidAsync(
+                $"{AzureMapsClass}.drawLocation",
+                opts
+            );
+        }
+
+        public async Task ClearShapes()
+        {
+            await this.azureMapsModule.InvokeVoidAsync(
+                $"{AzureMapsClass}.clearShapes");
         }
 
         private async ValueTask EnsureModuleLoaded()

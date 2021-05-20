@@ -2,12 +2,31 @@
 <style>
     .mapboxgl-map {
         width: 100vw;
-        height: 50vh;
+        height: 80vh;
     }
 </style>
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<Map @ref="azureMaps" Options="new MapOptions { Center = new double[] { 25.482951, 21.349695 } }" DrawingManagerOptions="@drawingManagerOptions"></Map>
+<div class="row g-3 align-items-center">
+    <div class="col-auto">
+        <label class="form-label">Latitude</label>
+    </div>
+    <div class="col-auto">
+        <input type="number" class="form-control" id="latitude" @bind="Latitude">
+    </div>
+    <div class="col-auto">
+        <label class="form-label">Longitude</label>
+    </div>
+    <div class="col-auto">
+        <input type="number" class="form-control" id="longitude" @bind="Longitude">
+    </div>
+    <div class="col-auto">
+        <label class="form-label">Radius</label>
+    </div>
+    <div class="col-auto">
+        <input type="number" class="form-control" id="radius" @bind="Radius">
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-primary" @onclick="SetLocation">Set Location</button>
+    </div>
+</div>
+<Map @ref="azureMaps" Options="@(new MapOptions { Center = new double[] { Longitude, Latitude }, Zoom = 22, View = ViewEnum.Auto})"></Map>
 

@@ -51,5 +51,14 @@ namespace Blazor.Extensions.AzureMaps
         [JsonPropertyName("toolbar")]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public DrawingToolbar? Toolbar { get; set; }
+        [JsonPropertyName("latitude")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public double? Latitude { get; set; }
+        [JsonPropertyName("longitude")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public double? Longitude { get; set; }
+        [JsonPropertyName("radius")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public double? Radius { get; set; }
     }
 }

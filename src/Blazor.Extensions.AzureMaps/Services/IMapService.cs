@@ -7,5 +7,8 @@ namespace Blazor.Extensions.AzureMaps
     {
         Task<IMapReference> CreateMap(Guid mapId, MapOptions? options);
         Task AddDrawingTool(IMapReference mapReference, DrawingManagerOptions? drawingManagerOptions);
+        Task SetLocation(MapOptions cameraOptions);
+        Task DrawLocation(DrawingManagerOptions opts);
+        Task ClearShapes();
     }
 }
