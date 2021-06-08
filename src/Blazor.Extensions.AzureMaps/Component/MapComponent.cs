@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Logging;
@@ -48,6 +49,11 @@ namespace Blazor.Extensions.AzureMaps
         public async Task ClearShapes()
         {
             await this.MapService.ClearShapes();
+        }
+
+        public async Task<List<List<int>>> GetTiles()
+        {
+            return await this.MapService.GetTiles();
         }
 
         public ValueTask DisposeAsync()

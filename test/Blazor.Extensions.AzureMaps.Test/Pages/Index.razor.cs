@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Newtonsoft.Json;
 
 namespace Blazor.Extensions.AzureMaps.Test.Pages
 {
@@ -10,6 +12,7 @@ namespace Blazor.Extensions.AzureMaps.Test.Pages
         private double Latitude { get; set; }
         private double Longitude { get; set; }
         private int Radius { get; set; }
+        private string AzureMapInfo { get; set; }
         
         protected override Task OnAfterRenderAsync(bool firstRender)
         {
@@ -18,7 +21,7 @@ namespace Blazor.Extensions.AzureMaps.Test.Pages
 
         protected async Task SetLocation()
         {
-            await this.azureMaps.ClearShapes();
+            //await this.azureMaps.ClearShapes();
 
             var opts = new MapOptions
             {
@@ -35,6 +38,11 @@ namespace Blazor.Extensions.AzureMaps.Test.Pages
 
             await this.azureMaps.SetLocation(opts);
             await this.azureMaps.DrawLocation(drawingManagerOptions);
+        }
+
+        protected async Task GetTiles()
+        {
+            this.AzureMapInfo  = JsonConvert.SerializeObject(await this.azureMaps.GetTiles());
         }
     }
 }

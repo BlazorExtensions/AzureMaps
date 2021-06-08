@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
@@ -69,6 +70,12 @@ namespace Blazor.Extensions.AzureMaps
         {
             await this.azureMapsModule.InvokeVoidAsync(
                 $"{AzureMapsClass}.clearShapes");
+        }
+
+        public async Task<List<List<int>>> GetTiles()
+        {
+            return await this.azureMapsModule.InvokeAsync<List<List<int>>>(
+                $"{AzureMapsClass}.getTiles");
         }
 
         private async ValueTask EnsureModuleLoaded()

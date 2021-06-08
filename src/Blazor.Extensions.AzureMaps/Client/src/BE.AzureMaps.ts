@@ -61,8 +61,7 @@ export class BEAzureMaps {
     this._dataSource = this._drawingManager.getSource();
 
     //Add shapes to the datasource.
-    this._dataSource.add(circle);
-    this._dataSource.add(point);
+    this._dataSource.setShapes([circle,point]);
 
     //Enable edit mode so the shape can be resized
     //this._drawingManager.editHelper.edit(circle);
@@ -72,6 +71,32 @@ export class BEAzureMaps {
     if (this._dataSource) {
       this._dataSource.clear();
     }
+  }
+
+  static getTiles() {
+    if (this._drawingManager) {
+      const source = this._drawingManager.getSource();
+      const shapes = source.getShapes().filter(x => x.isCircle());
+      if (shapes.length) {
+        const coordinates = shapes[0].getCircleCoordinates();
+        const tiles = [];
+        coordinates.forEach(c => {
+          tiles.push(this.getTile(c[0], c[1], 22));
+        });
+        if (tiles.length) {
+          return tiles.map(cur => JSON.stringify(cur))
+            .filter((cur, index, self) => self.indexOf(cur) == index)
+            .map(cur => JSON.parse(cur));
+        }
+      }
+    }
+    return [];
+  }
+
+  static getTile(longitude:number, latitude:number, zoom:number) {
+    const x = Math.floor((longitude + 180.0) / 360.0 * Math.pow(2.0, zoom));
+    const y = Math.floor((1.0 - Math.log(Math.tan(latitude * Math.PI / 180.0) + 1.0 / Math.cos(latitude * Math.PI / 180.0)) / Math.PI) / 2.0 * Math.pow(2.0, zoom));
+    return [x, y];
   }
 
   static addDrawingTools (
