@@ -292,3 +292,5 @@ __pycache__/
 secrets.json
 
 /src/Blazor.Extensions.AzureMaps/wwwroot
+
+.DS_Store
