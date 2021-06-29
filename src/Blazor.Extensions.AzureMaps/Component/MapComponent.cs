@@ -28,11 +28,6 @@ namespace Blazor.Extensions.AzureMaps
             {
                 this.map = await this.MapService
                     .CreateMap(this.MapId, this.Options);
-                //if (this.DrawingManagerOptions != null)
-                //{
-                //    await this.MapService
-                //        .AddDrawingTool(this.map, this.DrawingManagerOptions);
-                //}
             }
         }
 
@@ -51,9 +46,20 @@ namespace Blazor.Extensions.AzureMaps
             await this.MapService.ClearShapes();
         }
 
+        public async Task ClearTiles()
+        {
+            await this.MapService.ClearTiles();
+        }
+
         public async Task<List<List<int>>> GetTiles()
         {
             return await this.MapService.GetTiles();
+        }
+
+        public async Task DrawTiles(int zoom)
+        {
+            var tileIds = await this.MapService.GetTiles();
+            await this.MapService.DrawTiles(tileIds, zoom);
         }
 
         public ValueTask DisposeAsync()

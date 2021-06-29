@@ -11,6 +11,8 @@ namespace Blazor.Extensions.AzureMaps
         Task SetLocation(MapOptions cameraOptions);
         Task DrawLocation(DrawingManagerOptions opts);
         Task ClearShapes();
+        Task ClearTiles();
         Task<List<List<int>>> GetTiles();
+        Task DrawTiles(List<List<int>> tiles, int zoom);
     }
 }

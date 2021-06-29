@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Blazor.Extensions.AzureMaps.Utilities;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 
@@ -72,10 +73,28 @@ namespace Blazor.Extensions.AzureMaps
                 $"{AzureMapsClass}.clearShapes");
         }
 
+        public async Task ClearTiles()
+        {
+            await this.azureMapsModule.InvokeVoidAsync(
+                $"{AzureMapsClass}.clearTiles");
+        }
+
         public async Task<List<List<int>>> GetTiles()
         {
             return await this.azureMapsModule.InvokeAsync<List<List<int>>>(
                 $"{AzureMapsClass}.getTiles");
+        }
+
+        public async Task DrawTiles(List<List<int>> tiles, int zoom)
+        {
+            await this.ClearTiles();
+            foreach (var tile in tiles)
+            {
+                var bounding = Conversions.TileIdToBounds(tile[0], tile[1], zoom);
+                var boundingList = bounding.ToPolygonList();
+                await this.azureMapsModule.InvokeVoidAsync(
+                    $"{AzureMapsClass}.drawTiles", boundingList);
+            }
         }
 
         private async ValueTask EnsureModuleLoaded()

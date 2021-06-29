@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Newtonsoft.Json;
@@ -43,6 +41,11 @@ namespace Blazor.Extensions.AzureMaps.Test.Pages
         protected async Task GetTiles()
         {
             this.AzureMapInfo  = JsonConvert.SerializeObject(await this.azureMaps.GetTiles());
+        }
+
+        protected async Task DrawTiles()
+        {
+            await this.azureMaps.DrawTiles(22);
         }
     }
 }
