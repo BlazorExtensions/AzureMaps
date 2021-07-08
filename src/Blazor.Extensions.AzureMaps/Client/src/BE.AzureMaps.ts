@@ -13,13 +13,10 @@ interface IDrawingManagerOptions extends dtools.DrawingManagerOptions {
 
 export class BEAzureMaps {
   private static _map: atlas.Map;
-  private static _circle: atlas.Shape;
   private static _drawingManager: dtools.drawing.DrawingManager;
   private static _dataSource: atlas.source.DataSource;
   private static _tilesDataSource: atlas.source.DataSource;
   private static _polygonLayer: atlas.layer.PolygonLayer;
-  private static _lineLayer: atlas.layer.LineLayer;
-  private static _bubbleLayer: atlas.layer.BubbleLayer;
 
   static injectCss(css): void {
     /* create the link element */
@@ -31,8 +28,8 @@ export class BEAzureMaps {
     document.getElementsByTagName("head")[0].appendChild(linkElement);
   }
 
-  static init(subscriptionKey: string): void {
-    atlas.setSubscriptionKey(subscriptionKey);
+  static setSubscriptionKey(key: string): void {
+    atlas.setSubscriptionKey(key);
   };
 
   static createMap(
@@ -46,29 +43,23 @@ export class BEAzureMaps {
     return this._map;
   };
 
-  static setLocation(cameraOptions: atlas.CameraOptions):void {
-    this._map.setCamera(cameraOptions);
+  static setCamera(options: atlas.CameraOptions):void {
+    this._map.setCamera(options);
   }
 
-  static drawLocation(
-    options: IDrawingManagerOptions
+  static addShape(
+    options: IDrawingManagerOptions,
+    id?: string,
+    properties?: any
     ) {
-    const circle = new atlas.Shape(new atlas.data.Point([options.longitude, options.latitude]), null, {
-      subType: "Circle",
-      radius: options.radius
-    });
-
-    const point = new atlas.Shape(new atlas.data.Point([options.longitude, options.latitude]));
+    const shape = new atlas.Shape(new atlas.data.Point([options.longitude, options.latitude]), id, properties);
 
     this._drawingManager = new dtools.drawing.DrawingManager(this._map, options);
 
     this._dataSource = this._drawingManager.getSource();
 
     //Add shapes to the datasource.
-    this._dataSource.setShapes([circle,point]);
-
-    //Enable edit mode so the shape can be resized
-    //this._drawingManager.editHelper.edit(circle);
+    this._dataSource.add(shape);
   }
 
   static clearShapes() {
@@ -122,10 +113,10 @@ export class BEAzureMaps {
     this._map.events.add("ready", () => new dtools.drawing.DrawingManager(this._map, options));
   };
 
-  static drawTiles(coordinates: any) {
-    this._tilesDataSource = <atlas.source.DataSource>(this._map.sources.getById("tilesDataSource"));
+  static addPolygon(datasourceId:string, coordinates: any, id:string, properties:any) {
+    this._tilesDataSource = <atlas.source.DataSource>(this._map.sources.getById(datasourceId));
     if (!this._tilesDataSource) {
-      this._tilesDataSource = new atlas.source.DataSource("tilesDataSource");
+      this._tilesDataSource = new atlas.source.DataSource(datasourceId);
       this._map.sources.add(this._tilesDataSource);
     }
     
@@ -136,10 +127,7 @@ export class BEAzureMaps {
     )));
 
     //Create a polygon layer to render the filled in area of the polygon.
-    this._polygonLayer = new atlas.layer.PolygonLayer(this._tilesDataSource, "myPolygonLayer", {
-      fillColor: "rgba(255,165,0,0.2)",
-      fillOpacity: 0.7
-    });
+    this._polygonLayer = new atlas.layer.PolygonLayer(this._tilesDataSource, id, properties);
 
     //Add all layers to the map.
     this._map.layers.add([this._polygonLayer]);
