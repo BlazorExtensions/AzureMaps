@@ -28,22 +28,17 @@ namespace Blazor.Extensions.AzureMaps
             {
                 this.map = await this.MapService
                     .CreateMap(this.MapId, this.Options);
-                //if (this.DrawingManagerOptions != null)
-                //{
-                //    await this.MapService
-                //        .AddDrawingTool(this.map, this.DrawingManagerOptions);
-                //}
             }
         }
 
-        public async Task SetLocation(MapOptions cameraOptions)
+        public async Task SetCamera(MapOptions cameraOptions)
         {
-            await this.MapService.SetLocation(cameraOptions);
+            await this.MapService.SetCamera(cameraOptions);
         }
 
-        public async Task DrawLocation(DrawingManagerOptions opts)
+        public async Task AddShape(DrawingManagerOptions opts, string id, ShapeProperties? properties)
         {
-            await this.MapService.DrawLocation(opts);
+            await this.MapService.AddShape(opts, id, properties);
         }
 
         public async Task ClearShapes()
@@ -51,9 +46,19 @@ namespace Blazor.Extensions.AzureMaps
             await this.MapService.ClearShapes();
         }
 
+        public async Task ClearTiles()
+        {
+            await this.MapService.ClearTiles();
+        }
+
         public async Task<List<List<int>>> GetTiles()
         {
             return await this.MapService.GetTiles();
+        }
+
+        public async Task AddPolygonByTiles(List<List<int>> tileIds,int zoom, string datasourceId, string id, PolygonOptions properties)
+        {
+            await this.MapService.AddPolygonByTiles(tileIds, zoom, datasourceId, id, properties);
         }
 
         public ValueTask DisposeAsync()

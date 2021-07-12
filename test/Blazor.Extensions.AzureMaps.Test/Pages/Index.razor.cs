@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Newtonsoft.Json;
@@ -26,7 +24,7 @@ namespace Blazor.Extensions.AzureMaps.Test.Pages
             var opts = new MapOptions
             {
                 Center = new []{ this.Longitude, this.Latitude },
-                Zoom = 22
+                Zoom = 16
             };
 
             var drawingManagerOptions = new DrawingManagerOptions
@@ -36,13 +34,30 @@ namespace Blazor.Extensions.AzureMaps.Test.Pages
                 Radius = this.Radius
             };
 
-            await this.azureMaps.SetLocation(opts);
-            await this.azureMaps.DrawLocation(drawingManagerOptions);
+            await this.azureMaps.SetCamera(opts);
+            await this.azureMaps.AddShape(drawingManagerOptions,"pin",null);
+            var properties = new ShapeProperties
+            {
+                SubType = "Circle",
+                Radius = this.Radius
+            };
+            await this.azureMaps.AddShape(drawingManagerOptions,"circle",properties);
         }
 
         protected async Task GetTiles()
         {
             this.AzureMapInfo  = JsonConvert.SerializeObject(await this.azureMaps.GetTiles());
+        }
+
+        protected async Task DrawTiles()
+        {
+            var tiles = await this.azureMaps.GetTiles();
+            var properties = new PolygonOptions
+            {
+                FillColor = "rgba(255,165,0,0.2)",
+                FillOpacity = 0.7
+            };
+            await this.azureMaps.AddPolygonByTiles(tiles,22, "tilesDataSource", "myPolygonLayer", properties);
         }
     }
 }

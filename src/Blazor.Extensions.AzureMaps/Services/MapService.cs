@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Blazor.Extensions.AzureMaps.Utilities;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 
@@ -10,7 +11,7 @@ namespace Blazor.Extensions.AzureMaps
     {
         private const string AzureMapsScriptName = "./_content/Blazor.Extensions.AzureMaps/BE.AzureMaps.js";
         private const string AzureMapsCssName = "./_content/Blazor.Extensions.AzureMaps/bundle.css";
-        private const string InitAzureMapsMethod = "init";
+        private const string SetSubscriptionKeyMethod = "setSubscriptionKey";
         private const string InjectCssMethod = "injectCss";
         private const string AzureMapsClass = "BEAzureMaps";
         private const string CreateMapMethod = "createMap";
@@ -50,19 +51,19 @@ namespace Blazor.Extensions.AzureMaps
                 );
         }
 
-        public async Task SetLocation(MapOptions cameraOptions)
+        public async Task SetCamera(MapOptions options)
         {
             await this.azureMapsModule.InvokeVoidAsync(
-                $"{AzureMapsClass}.setLocation",
-                cameraOptions
+                $"{AzureMapsClass}.setCamera",
+                options
             );
         }
 
-        public async Task DrawLocation(DrawingManagerOptions opts)
+        public async Task AddShape(DrawingManagerOptions opts, string id, ShapeProperties? properties)
         {
             await this.azureMapsModule.InvokeVoidAsync(
-                $"{AzureMapsClass}.drawLocation",
-                opts
+                $"{AzureMapsClass}.addShape",
+                opts,id,properties
             );
         }
 
@@ -72,10 +73,28 @@ namespace Blazor.Extensions.AzureMaps
                 $"{AzureMapsClass}.clearShapes");
         }
 
+        public async Task ClearTiles()
+        {
+            await this.azureMapsModule.InvokeVoidAsync(
+                $"{AzureMapsClass}.clearTiles");
+        }
+
         public async Task<List<List<int>>> GetTiles()
         {
             return await this.azureMapsModule.InvokeAsync<List<List<int>>>(
                 $"{AzureMapsClass}.getTiles");
+        }
+
+        public async Task AddPolygonByTiles(List<List<int>> tiles, int zoom, string datasourceId, string id, PolygonOptions properties)
+        {
+            await this.ClearTiles();
+            foreach (var tile in tiles)
+            {
+                var bounding = Conversions.TileIdToBounds(tile[0], tile[1], zoom);
+                var boundingList = bounding.ToPolygonList();
+                await this.azureMapsModule.InvokeVoidAsync(
+                    $"{AzureMapsClass}.addPolygon", datasourceId,boundingList,id,properties);
+            }
         }
 
         private async ValueTask EnsureModuleLoaded()
@@ -86,7 +105,7 @@ namespace Blazor.Extensions.AzureMaps
                 ImportJSModuleMethod, AzureMapsScriptName);
 
             await this.azureMapsModule.InvokeVoidAsync($"{AzureMapsClass}.{InjectCssMethod}", AzureMapsCssName);
-            await this.azureMapsModule.InvokeVoidAsync($"{AzureMapsClass}.{InitAzureMapsMethod}", this.options.SubscriptionKey);
+            await this.azureMapsModule.InvokeVoidAsync($"{AzureMapsClass}.{SetSubscriptionKeyMethod}", this.options.SubscriptionKey);
         }
     }
 }

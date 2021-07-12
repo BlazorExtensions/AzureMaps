@@ -30,6 +30,9 @@
     <div class="col-auto">
         <button class="btn btn-primary" @onclick="GetTiles">Get Tiles</button>
     </div>
+    <div class="col-auto">
+        <button class="btn btn-primary" @onclick="DrawTiles">Draw Tiles</button>
+    </div>
 </div>
 <div>@AzureMapInfo</div>
 <Map @ref="azureMaps" Options="@(new MapOptions { Center = new double[] { Longitude, Latitude }, Zoom = 22, View = ViewEnum.Auto})"></Map>
